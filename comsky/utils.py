@@ -24,7 +24,7 @@ def SafeRVS(dist, nevt):
     -----
     if dist is a float, this will just return an array of size `nevt` all set to `dist`
     """
-    if np.isscalar(dist):
+    if np.isscalar(dist): #pragma: no cover
         return np.ones(nevt)*dist
     return dist.rvs(size=nevt)
 
@@ -33,8 +33,10 @@ def SafeRVS(dist, nevt):
 def AddRingToMap(m, pix, nside, radius=30, width=5):
     """Given a healpix map and a sky direction (given here as the healpix pixel index),
     add the back-projected compton cone around that pixel to the map.
-    That is done by finding the pixels in a ring (with given radius and width) around the given direction,
-    and adding 1 to the map value of the pixels in that ring. (Might want to normalize it by the ring area eventually.)
+    That is done by finding the pixels in a ring (with given radius and width)
+    around the given direction,
+    and adding 1 to the map value of the pixels in that ring.
+    (Might want to normalize it by the ring area eventually.)
 
     Parameters
     ----------
@@ -294,7 +296,6 @@ def AddSampledEventsToMap(m, l, b, **kwargs):
     theta_cent, phi_cent = hp.pixelfunc.vec2ang(center_vecs.T)
     vecs = GetLociPoints(phi_cent, theta_cent, alpha_obs, phi_obs)
     ipix = hp.pixelfunc.vec2pix(nside, vecs[0], vecs[1], vecs[2])
-    print(ipix.size)
     for ipix_ in ipix:
         m[ipix_] += 1
 
